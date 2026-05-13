@@ -631,18 +631,9 @@ video {
   border-color: rgb(250 204 21 / var(--tw-border-opacity, 1));
 }
 
-.border-yellow-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(253 224 71 / var(--tw-border-opacity, 1));
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
-}
-
-.fill-yellow-500 {
-  fill: #eab308;
 }
 
 .fill-yellow-400 {
