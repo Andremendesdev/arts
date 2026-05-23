@@ -11,6 +11,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.10.0(react-hook-form@7.76.0(react@19.2.6))
+      '@netlify/plugin-nextjs':
+        specifier: ^5.15.11
+        version: 5.15.11
       '@radix-ui/react-accordion':
         specifier: 1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -388,6 +391,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@netlify/plugin-nextjs@5.15.11':
+    resolution: {integrity: sha512-cx7yoJFYDBFRecGqJaEUuvnHvU+vs9ISn7DUXyijPheaqtbyRy4+z7Mjre9swEJ19ItVeFhuGuXUkl6X5nfJeA==}
+    engines: {node: '>=18.0.0'}
 
   '@next/env@16.2.6':
     resolution: {integrity: sha512-gd8HoHN4ufj73WmR3JmVolrpJR47ILK6LouP5xElPglaVxir6e1a7VzvTvDWkOoPXT9rkkTzyCxBu4yeZfZwcw==}
@@ -1928,6 +1935,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@netlify/plugin-nextjs@5.15.11': {}
 
   '@next/env@16.2.6': {}
 
