@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Barbearia NAGARAGE - Dark Premium Theme */
+  --background: oklch(0.07 0 0);         /* #0a0a0a */
+  --foreground: oklch(1 0 0);            /* #ffffff */
+  --card: oklch(0.11 0 0);               /* #151515 */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.11 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.96 0.19 102);       /* #ffea00 gold */
+  --primary-foreground: oklch(0.07 0 0); /* dark on gold */
+  --secondary: oklch(0.14 0 0);          /* #1f1f1f */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.14 0 0);
+  --muted-foreground: oklch(0.67 0 0);   /* #aaaaaa */
+  --accent: oklch(0.96 0.19 102);        /* gold accent */
+  --accent-foreground: oklch(0.07 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.18 0 0);             /* #2a2a2a */
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.96 0.19 102);
+  --radius: 0.5rem;
+
+  /* Custom tokens */
+  --gold: #ffea00;
+  --gold-glow: rgba(255, 234, 0, 0.25);
+  --dark-card: #151515;
+  --dark-surface: #0f0f0f;
+}
+
+@theme inline {
+  --font-sans: 'Montserrat', 'sans-serif';
+  --font-serif: 'Playfair Display', 'serif';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Gold neon text */
+.gold-glow {
+  color: var(--gold);
+  text-shadow:
+    0 0 2px #ffd000,
+    0 0 8px #ffd000,
+    0 0 16px #ffea00;
+}
+
+/* Subtle noise overlay for depth */
+.noise-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
