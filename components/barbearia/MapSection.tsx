@@ -1,14 +1,19 @@
-"use client"
+"use client";
 
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function MapSection() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-60px" })
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section className="px-6 pb-0" style={{ background: "#080808" }} ref={ref}>
+    <section
+      id="mapsection"
+      className="px-6 pb-0"
+      style={{ background: "#080808" }}
+      ref={ref}
+    >
       <div className="max-w-5xl mx-auto">
         {/* Divider */}
         <div
@@ -29,8 +34,7 @@ export default function MapSection() {
             Onde estamos
           </span>
           <h2 className="font-serif text-3xl font-bold">
-            Nos{" "}
-            <span className="gold-glow">Encontre</span>
+            Nos <span className="gold-glow">Encontre</span>
           </h2>
           <p className="text-zinc-500 text-sm mt-2">Piraju, SP — Brasil</p>
         </motion.div>
@@ -49,12 +53,16 @@ export default function MapSection() {
             src="https://www.google.com/maps?q=-23.1941616,-49.385763&output=embed"
             width="100%"
             height="380"
-            style={{ border: 0, display: "block", filter: "grayscale(80%) invert(90%) contrast(90%)" }}
+            style={{
+              border: 0,
+              display: "block",
+              filter: "grayscale(80%) invert(90%) contrast(90%)",
+            }}
             loading="lazy"
             title="Localização da Na Garage Barbearia"
           />
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

@@ -23,7 +23,47 @@ export default function Hero() {
           "linear-gradient(to bottom, rgba(10,10,10,0.65) 0%, rgba(10,10,10,0.97) 100%), url('/interior.jpeg') center/cover no-repeat",
       }}
     >
-      {/* Status badge — inline no topo em mobile */}
+      {/* Instagram button */}
+      <motion.a
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        href="https://instagram.com/nagaragebarbearia"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        className="absolute top-20 right-5 md:top-24 md:right-8 z-20 flex items-center justify-center rounded-full w-14 h-14"
+        style={{
+          border: "1.5px solid #ffea00",
+          color: "#ffea00",
+          background: "rgba(10,10,10,0.45)",
+          boxShadow:
+            "0 0 10px rgba(255,234,0,0.25), inset 0 0 10px rgba(255,234,0,0.05)",
+          backdropFilter: "blur(8px)",
+        }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget;
+          el.style.background = "#ffea00";
+          el.style.color = "#0a0a0a";
+          el.style.boxShadow = "0 0 25px rgba(255,234,0,0.55)";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget;
+          el.style.background = "rgba(10,10,10,0.45)";
+          el.style.color = "#ffea00";
+          el.style.boxShadow =
+            "0 0 10px rgba(255,234,0,0.25), inset 0 0 10px rgba(255,234,0,0.05)";
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+          className="w-[22px] h-[22px] fill-current"
+        >
+          <path d="M224.1 141c-63.6 0-115.1 51.5-115.1 115.1S160.5 371.2 224.1 371.2 339.2 319.7 339.2 256.1 287.7 141 224.1 141zm0 189.6c-41.1 0-74.5-33.4-74.5-74.5s33.4-74.5 74.5-74.5 74.5 33.4 74.5 74.5-33.4 74.5-74.5 74.5zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9 0-14.9 12-26.9 26.9-26.9 14.9 0 26.9 12 26.9 26.9zM398.8 80c-22.1-22.1-51.3-34.2-82.6-34.2H131.8c-64.4 0-116.8 52.4-116.8 116.8v184.3c0 31.3 12.2 60.5 34.2 82.6 22.1 22.1 51.3 34.2 82.6 34.2h184.3c64.4 0 116.8-52.4 116.8-116.8V162.6c0-31.3-12.1-60.5-34.1-82.6zM398 346.9c0 45.2-36.7 81.9-81.9 81.9H131.8c-21.9 0-42.4-8.5-57.9-24-15.5-15.5-24-36-24-57.9V162.6c0-45.2 36.7-81.9 81.9-81.9h184.3c21.9 0 42.4 8.5 57.9 24 15.5 15.5 24 36 24 57.9v184.3z" />
+        </svg>
+      </motion.a>
 
       {/* Conteúdo centralizado */}
       <div className="flex flex-col items-center justify-center text-center px-5 pt-8 pb-16 md:pt-0 md:min-h-screen">

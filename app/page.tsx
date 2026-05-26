@@ -5,6 +5,7 @@ import Gallery from "@/components/barbearia/Gallery";
 import MapSection from "@/components/barbearia/MapSection";
 import Footer from "@/components/barbearia/Footer";
 import FloatingWhatsApp from "@/components/barbearia/FloatingWhatsApp";
+import Preview from "@/components/barbearia/Preview";
 
 export default function Page() {
   return (
@@ -13,6 +14,7 @@ export default function Page() {
       <Hero />
       <Services />
       <Gallery />
+      <Preview />
       <MapSection />
       <Footer />
       <FloatingWhatsApp />

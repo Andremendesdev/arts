@@ -21,8 +21,8 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* h-20 garante altura para centralizar tudo verticalmente */}
-        <div className="flex justify-between items-center h-16 text-white">
+        {/* Adicionado 'relative' aqui para ancorar o menu centralizado */}
+        <div className="relative flex justify-between items-center h-16 text-white">
           {/* Lado Esquerdo: Ícones (alinhados ao centro) */}
           <div className="flex items-center gap-6 text-yellow-500">
             <Scissors size={20} />
@@ -30,30 +30,46 @@ export default function Navbar() {
             <Zap size={20} />
           </div>
 
-          {/* Lado Direito Desktop: Links + StatusBadge */}
-          <div className="hidden md:flex items-center gap-10">
+          {/* CENTRO (Desktop): Links de navegação cravados no meio */}
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center">
             <div className="flex gap-8 font-medium text-sm uppercase tracking-wide">
               <a
-                href="/gallery"
-                className="hover:text-yellow-500 transition-colors"
+                className="hover:text-yellow-500 transition-colors cursor-pointer"
+                onClick={() => {
+                  document
+                    .getElementById("gallery")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 Galeria
               </a>
+
               <a
-                href="/services"
-                className="hover:text-yellow-500 transition-colors"
+                className="hover:text-yellow-500 transition-colors cursor-pointer"
+                onClick={() => {
+                  document
+                    .getElementById("services")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 Serviços
               </a>
+
               <a
-                href="/location"
-                className="hover:text-yellow-500 transition-colors"
+                className="hover:text-yellow-500 transition-colors cursor-pointer"
+                onClick={() => {
+                  document
+                    .getElementById("mapsection")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 Localização
               </a>
             </div>
+          </div>
 
-            {/* StatusBadge centralizado na altura da linha */}
+          {/* Lado Direito Desktop: Apenas o StatusBadge */}
+          <div className="hidden md:flex items-center">
             <StatusBadge />
           </div>
 
@@ -78,13 +94,42 @@ export default function Navbar() {
           className="md:hidden bg-black/95 text-white border-t border-gray-800"
         >
           <div className="flex flex-col p-6 gap-6 text-center text-lg">
-            <a href="/gallery" onClick={() => setIsOpen(false)}>
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                document
+                  .getElementById("gallery")
+                  ?.scrollIntoView({ behavior: "smooth" });
+
+                setIsOpen(false);
+              }}
+            >
               Galeria
             </a>
-            <a href="/services" onClick={() => setIsOpen(false)}>
+
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                document
+                  .getElementById("services")
+                  ?.scrollIntoView({ behavior: "smooth" });
+
+                setIsOpen(false);
+              }}
+            >
               Serviços
             </a>
-            <a href="/location" onClick={() => setIsOpen(false)}>
+
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                document
+                  .getElementById("mapsection")
+                  ?.scrollIntoView({ behavior: "smooth" });
+
+                setIsOpen(false);
+              }}
+            >
               Localização
             </a>
           </div>

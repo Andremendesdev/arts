@@ -23,12 +23,15 @@ function GalleryItem({
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [hovered, setHovered] = useState(false);
+
+  // Usamos isActive para lidar tanto com o hover do mouse quanto com o clique (mobile)
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      className={`relative overflow-hidden rounded-2xl ${photo.span}`}
+      // O 'overflow-hidden' garante que a foto cresça internamente sem vazar ou aumentar a div
+      className={`relative overflow-hidden rounded-2xl cursor-pointer ${photo.span}`}
       style={{ minHeight: 280 }}
       initial={{ opacity: 0, scale: 0.96 }}
       animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -37,36 +40,37 @@ function GalleryItem({
         ease: [0.22, 1, 0.36, 1],
         delay: index * 0.1,
       }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => setIsActive(true)}
+      onHoverEnd={() => setIsActive(false)}
+      onClick={() => setIsActive(!isActive)} // Adicionado para funcionar perfeitamente ao clicar
     >
       <motion.img
         src={photo.src}
         alt={photo.alt}
         className="w-full h-full object-cover absolute inset-0"
         animate={{
-          scale: hovered ? 1.07 : 1,
-          filter: hovered ? "grayscale(0%)" : "grayscale(70%)",
+          scale: isActive ? 1.12 : 1, // Aumenta a foto internamente
+          filter: isActive ? "grayscale(0%)" : "grayscale(100%)", // Tira o cinza e volta a cor original
         }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      {/* Overlay */}
+      {/* Overlay Escurecido */}
       <motion.div
         className="absolute inset-0"
         animate={{
-          background: hovered
+          background: isActive
             ? "linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 60%)"
-            : "rgba(10,10,10,0.2)",
+            : "rgba(10,10,10,0.3)",
         }}
         transition={{ duration: 0.4 }}
       />
 
-      {/* Gold border on hover */}
+      {/* Borda dourada ativada no hover/clique */}
       <motion.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         animate={{
-          boxShadow: hovered
+          boxShadow: isActive
             ? "inset 0 0 0 2px rgba(255,234,0,0.5)"
             : "inset 0 0 0 0px rgba(255,234,0,0)",
         }}
@@ -81,7 +85,11 @@ export default function Gallery() {
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
 
   return (
-    <section className="py-28 px-6" style={{ background: "#080808" }}>
+    <section
+      id="gallery"
+      className="py-28 px-6"
+      style={{ background: "#080808" }}
+    >
       <div className="max-w-5xl mx-auto">
         {/* Heading */}
         <motion.div
@@ -94,8 +102,16 @@ export default function Gallery() {
           <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 block mb-4">
             Conheça o espaço
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide">
-            A <span className="gold-glow">Barbearia</span>
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide text-white">
+            A{" "}
+            <span
+              style={{
+                color: "#ffea00",
+                textShadow: "0 0 10px rgba(255,234,0,0.3)",
+              }}
+            >
+              Barbearia
+            </span>
           </h2>
           <div
             className="mx-auto mt-6 h-px w-16"

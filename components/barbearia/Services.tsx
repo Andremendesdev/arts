@@ -1,17 +1,27 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useRef } from "react"
-import { useInView } from "framer-motion"
+import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 
-const WHATSAPP_BASE = "https://wa.me/5514997216010?text="
+const WHATSAPP_BASE = "https://wa.me/5514997216010?text=";
 
 const services = [
   {
     id: "corte",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M14.121 14.121L19 19m-7-7 7-7-7 7-4.5-4.5L3 3m11 11L7 7" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        className="w-8 h-8"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M14.121 14.121L19 19m-7-7 7-7-7 7-4.5-4.5L3 3m11 11L7 7"
+        />
         <circle cx="6.5" cy="17.5" r="2.5" />
         <circle cx="17.5" cy="17.5" r="2.5" />
       </svg>
@@ -26,8 +36,18 @@ const services = [
   {
     id: "barba",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        className="w-8 h-8"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+        />
       </svg>
     ),
     title: "Barba Terapia",
@@ -37,23 +57,34 @@ const services = [
     whatsappMsg:
       "Olá! Gostaria de saber se o serviço de Barba Terapia está disponível hoje na Barbearia Na Garage.",
   },
-]
+];
 
-function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+function ServiceCard({
+  service,
+  index,
+}: {
+  service: (typeof services)[0];
+  index: number;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const handleClick = () => {
-    const url = `${WHATSAPP_BASE}${encodeURIComponent(service.whatsappMsg)}`
-    window.open(url, "_blank")
-  }
+    const url = `${WHATSAPP_BASE}${encodeURIComponent(service.whatsappMsg)}`;
+    window.open(url, "_blank");
+  };
 
   return (
     <motion.article
+      id="services"
       ref={ref}
       initial={{ opacity: 0, y: 48 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: index * 0.15 }}
+      transition={{
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+        delay: index * 0.15,
+      }}
       onClick={handleClick}
       role="button"
       tabIndex={0}
@@ -63,20 +94,20 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
       whileHover={{ y: -8 }}
       whileTap={{ scale: 0.98 }}
       onHoverStart={(e) => {
-        ;(e.target as HTMLElement)
+        (e.target as HTMLElement)
           .closest("article")
-          ?.style.setProperty("border-color", "#ffea00")
-        ;(e.target as HTMLElement)
+          ?.style.setProperty("border-color", "#ffea00");
+        (e.target as HTMLElement)
           .closest("article")
-          ?.style.setProperty("box-shadow", "0 16px 48px rgba(255,234,0,0.12)")
+          ?.style.setProperty("box-shadow", "0 16px 48px rgba(255,234,0,0.12)");
       }}
       onHoverEnd={(e) => {
-        ;(e.target as HTMLElement)
+        (e.target as HTMLElement)
           .closest("article")
-          ?.style.setProperty("border-color", "rgb(39 39 42)")
-        ;(e.target as HTMLElement)
+          ?.style.setProperty("border-color", "rgb(39 39 42)");
+        (e.target as HTMLElement)
           .closest("article")
-          ?.style.setProperty("box-shadow", "none")
+          ?.style.setProperty("box-shadow", "none");
       }}
     >
       {/* Icon */}
@@ -96,7 +127,9 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
       </h3>
 
       {/* Description */}
-      <p className="text-zinc-400 text-sm leading-relaxed mb-8">{service.description}</p>
+      <p className="text-zinc-400 text-sm leading-relaxed mb-8">
+        {service.description}
+      </p>
 
       {/* Footer row */}
       <div className="flex items-center justify-between">
@@ -109,12 +142,12 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
         </span>
       </div>
     </motion.article>
-  )
+  );
 }
 
 export default function Services() {
-  const titleRef = useRef(null)
-  const titleInView = useInView(titleRef, { once: true, margin: "-60px" })
+  const titleRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
 
   return (
     <section className="py-28 px-6" style={{ background: "#0a0a0a" }}>
@@ -131,12 +164,14 @@ export default function Services() {
             O que oferecemos
           </span>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide">
-            Nossos{" "}
-            <span className="gold-glow">Serviços</span>
+            Nossos <span className="gold-glow">Serviços</span>
           </h2>
           <div
             className="mx-auto mt-6 h-px w-16"
-            style={{ background: "linear-gradient(to right, transparent, #ffea00, transparent)" }}
+            style={{
+              background:
+                "linear-gradient(to right, transparent, #ffea00, transparent)",
+            }}
           />
         </motion.div>
 
@@ -148,5 +183,5 @@ export default function Services() {
         </div>
       </div>
     </section>
-  )
+  );
 }
