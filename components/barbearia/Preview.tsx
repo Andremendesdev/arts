@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const GOOGLE_REVIEW_LINK =
-  "https://search.google.com/local/writereview?placeid=SEU_PLACE_ID";
+const GOOGLE_REVIEW_LINK = "https://g.page/r/CT5HV1THeJGnEAE/review";
 
 const reviews = [
   {
@@ -130,7 +129,7 @@ export default function Preview() {
         </p>
 
         <motion.a
-          href="https://share.google/FbzAx6VfkbmHMO8ou"
+          href="https://g.page/r/CT5HV1THeJGnEAE/review"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.04, y: -2 }}
