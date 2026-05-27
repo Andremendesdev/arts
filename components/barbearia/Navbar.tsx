@@ -24,12 +24,17 @@ export default function Navbar() {
         {/* Adicionado 'relative' aqui para ancorar o menu centralizado */}
         <div className="relative flex justify-between items-center h-16 text-white">
           {/* Lado Esquerdo: Ícones (alinhados ao centro) */}
-          <div className="flex items-center gap-6 text-yellow-500">
-            <Scissors size={20} />
-            <Guitar size={20} />
-            <Zap size={20} />
-          </div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Scissors size={16} className="text-white sm:size-5" />
 
+            <span className="text-[10px] sm:text-sm font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-white uppercase">
+              Na Garage
+            </span>
+
+            <span className="text-[10px] sm:text-sm font-medium tracking-[0.12em] sm:tracking-[0.2em] text-yellow-400 uppercase">
+              Barbearia
+            </span>
+          </div>
           {/* CENTRO (Desktop): Links de navegação cravados no meio */}
           <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center">
             <div className="flex gap-8 font-medium text-sm uppercase tracking-wide">
