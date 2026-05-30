@@ -3,67 +3,44 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import { Scissors } from "lucide-react"; // Importar ícone padrão para fallback
 
 const WHATSAPP_BASE = "https://wa.me/5514997216010?text=";
 
-const services = [
-  {
-    id: "corte",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        className="w-8 h-8"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M14.121 14.121L19 19m-7-7 7-7-7 7-4.5-4.5L3 3m11 11L7 7"
-        />
-        <circle cx="6.5" cy="17.5" r="2.5" />
-        <circle cx="17.5" cy="17.5" r="2.5" />
-      </svg>
-    ),
-    title: "Corte Clássico",
-    description:
-      "Corte na tesoura ou máquina, com acabamento impecável, finalização com pomada.",
-    price: "R$ 40",
-    whatsappMsg:
-      "Olá! Gostaria de saber se o serviço de Corte Clássico está disponível hoje na Barbearia Na Garage.",
-  },
-  {
-    id: "barba",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        className="w-8 h-8"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-        />
-      </svg>
-    ),
-    title: "Barba Terapia",
-    description:
-      "Alinhamento dos fios com produtos premium para hidratar e nutrir a pele.",
-    price: "R$ 40",
-    whatsappMsg:
-      "Olá! Gostaria de saber se o serviço de Barba Terapia está disponível hoje na Barbearia Na Garage.",
-  },
-];
+export type ServiceType = {
+  _id: string;
+  title: string;
+  description: string;
+  price: string;
+  whatsappMsg: string;
+  iconName: string;
+};
+
+// SVG Ícones
+const IconScissors = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M14.121 14.121L19 19m-7-7 7-7-7 7-4.5-4.5L3 3m11 11L7 7" />
+    <circle cx="6.5" cy="17.5" r="2.5" />
+    <circle cx="17.5" cy="17.5" r="2.5" />
+  </svg>
+);
+
+const IconBeard = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+  </svg>
+);
+
+function getIcon(name: string) {
+  if (name === "beard") return IconBeard;
+  return IconScissors; // Padrão
+}
 
 function ServiceCard({
   service,
   index,
 }: {
-  service: (typeof services)[0];
+  service: ServiceType;
   index: number;
 }) {
   const ref = useRef(null);
@@ -115,7 +92,7 @@ function ServiceCard({
         className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6 transition-all duration-300"
         style={{ background: "rgba(255,234,0,0.08)", color: "#ffea00" }}
       >
-        {service.icon}
+        {getIcon(service.iconName)}
       </div>
 
       {/* Title */}
@@ -145,7 +122,7 @@ function ServiceCard({
   );
 }
 
-export default function Services() {
+export default function Services({ services = [] }: { services?: ServiceType[] }) {
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
 
@@ -164,7 +141,7 @@ export default function Services() {
             O que oferecemos
           </span>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide">
-            Nossos <span className="gold-glow">Serviços</span>
+            Nossos <span className="gold-glow text-[#ffea00]">Serviços</span>
           </h2>
           <div
             className="mx-auto mt-6 h-px w-16"
@@ -178,10 +155,11 @@ export default function Services() {
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((service, i) => (
-            <ServiceCard key={service.id} service={service} index={i} />
+            <ServiceCard key={service._id} service={service} index={i} />
           ))}
         </div>
       </div>
     </section>
   );
 }
+

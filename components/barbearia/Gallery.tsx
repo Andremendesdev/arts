@@ -2,36 +2,32 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { urlForImage } from "../../sanity/lib/image";
 
-const photos = [
-  {
-    src: "/interior.jpeg",
-    alt: "Interior da barbearia",
-    span: "md:col-span-2 md:row-span-2",
-  },
-  { src: "/cadeira.jpeg", alt: "Cadeira da barbearia", span: "" },
-  { src: "/fachada.jpeg", alt: "Fachada da Na Garage Barbearia", span: "" },
-  { src: "/cafe.jpeg", alt: "Café da barbearia", span: "md:col-span-2" },
-];
+export type PhotoType = {
+  _id: string;
+  image: any;
+  alt: string;
+  span?: string;
+};
 
 function GalleryItem({
   photo,
   index,
 }: {
-  photo: (typeof photos)[0];
+  photo: PhotoType;
   index: number;
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  // Usamos isActive para lidar tanto com o hover do mouse quanto com o clique (mobile)
   const [isActive, setIsActive] = useState(false);
+  const imageUrl = photo.image ? urlForImage(photo.image)?.url() : "";
 
   return (
     <motion.div
       ref={ref}
-      // O 'overflow-hidden' garante que a foto cresça internamente sem vazar ou aumentar a div
-      className={`relative overflow-hidden rounded-2xl cursor-pointer ${photo.span}`}
+      className={`relative overflow-hidden rounded-2xl cursor-pointer ${photo.span || ""}`}
       style={{ minHeight: 280 }}
       initial={{ opacity: 0, scale: 0.96 }}
       animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -42,18 +38,20 @@ function GalleryItem({
       }}
       onHoverStart={() => setIsActive(true)}
       onHoverEnd={() => setIsActive(false)}
-      onClick={() => setIsActive(!isActive)} // Adicionado para funcionar perfeitamente ao clicar
+      onClick={() => setIsActive(!isActive)}
     >
-      <motion.img
-        src={photo.src}
-        alt={photo.alt}
-        className="w-full h-full object-cover absolute inset-0"
-        animate={{
-          scale: isActive ? 1.12 : 1, // Aumenta a foto internamente
-          filter: isActive ? "grayscale(0%)" : "grayscale(100%)", // Tira o cinza e volta a cor original
-        }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      />
+      {imageUrl && (
+        <motion.img
+          src={imageUrl}
+          alt={photo.alt}
+          className="w-full h-full object-cover absolute inset-0 bg-zinc-800"
+          animate={{
+            scale: isActive ? 1.12 : 1,
+            filter: isActive ? "grayscale(0%)" : "grayscale(100%)",
+          }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        />
+      )}
 
       {/* Overlay Escurecido */}
       <motion.div
@@ -80,9 +78,12 @@ function GalleryItem({
   );
 }
 
-export default function Gallery() {
+export default function Gallery({ photos = [] }: { photos?: PhotoType[] }) {
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
+
+  // Fallback se não houver fotos cadastradas ainda
+  const displayPhotos = photos.length > 0 ? photos : [];
 
   return (
     <section
@@ -124,11 +125,11 @@ export default function Gallery() {
 
         {/* Masonry-style grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
           style={{ height: "auto" }}
         >
-          {photos.map((photo, i) => (
-            <GalleryItem key={photo.src} photo={photo} index={i} />
+          {displayPhotos.map((photo, i) => (
+            <GalleryItem key={photo._id || i} photo={photo} index={i} />
           ))}
         </div>
       </div>

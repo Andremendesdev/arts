@@ -7,7 +7,10 @@ interface StatusInfo {
   label: string;
 }
 
-function getStatus(): StatusInfo {
+function getStatus(override: string = "auto"): StatusInfo {
+  if (override === "open") return { open: true, label: "Aberto" };
+  if (override === "closed") return { open: false, label: "Fechado" };
+
   const now = new Date();
   const day = now.getDay(); // 0=Dom, 1=Seg...6=Sab
   const hour = now.getHours();
@@ -25,19 +28,21 @@ function getStatus(): StatusInfo {
 interface StatusBadgeProps {
   /** Quando true, renderiza sem posicionamento absolute (para uso inline no mobile) */
   inline?: boolean;
+  statusOverride?: string;
 }
 
-export default function StatusBadge({ inline = false }: StatusBadgeProps) {
+export default function StatusBadge({ inline = false, statusOverride = "auto" }: StatusBadgeProps) {
   const [status, setStatus] = useState<StatusInfo>({
     open: false,
     label: "Verificando...",
   });
 
   useEffect(() => {
-    setStatus(getStatus());
-    const interval = setInterval(() => setStatus(getStatus()), 60_000);
+    setStatus(getStatus(statusOverride));
+    if (statusOverride !== "auto") return; // Não precisa de timer se for manual
+    const interval = setInterval(() => setStatus(getStatus(statusOverride)), 60_000);
     return () => clearInterval(interval);
-  }, []);
+  }, [statusOverride]);
 
   const positionClass = inline
     ? "rounded-xl border px-3 py-2 backdrop-blur-md"

@@ -4,7 +4,7 @@ import { Scissors, Guitar, Zap, Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import StatusBadge from "./StatusBadge";
 
-export default function Navbar() {
+export default function Navbar({ statusOverride = "auto" }: { statusOverride?: string }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -75,12 +75,12 @@ export default function Navbar() {
 
           {/* Lado Direito Desktop: Apenas o StatusBadge */}
           <div className="hidden md:flex items-center">
-            <StatusBadge />
+            <StatusBadge statusOverride={statusOverride} />
           </div>
 
           {/* Mobile: Alinhado e com espaço correto */}
           <div className="flex items-center gap-4 md:hidden">
-            <StatusBadge inline />
+            <StatusBadge inline statusOverride={statusOverride} />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 hover:bg-white/10 rounded-full transition-colors"
