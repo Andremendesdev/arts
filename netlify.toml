@@ -1,2 +1,6 @@
 [[plugins]]
 package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  # NEXT_PUBLIC_* são embutidas no bundle pelo Next.js — não falhar o scan por isso
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"

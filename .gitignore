@@ -13,3 +13,18 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+
+# Variáveis de ambiente (qualquer .env com segredo)
+.env
+.env.development
+.env.production
+
+# Logs e cache
+*.log
+.turbo
+*.tsbuildinfo
+
+# IDE (opcional)
+.idea/
+.vscode/
+.cursor/

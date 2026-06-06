@@ -41,13 +41,13 @@ function missing(vars) {
   for (const v of vars) console.error(`   ${v}`)
   console.error(`
 Obtenha a Secret key em:
-  https://supabase.com/dashboard/project/mgvfturdwdhlfspjspxd/settings/api-keys
+  Supabase Dashboard → Settings → API Keys
 
 Exemplo .env.local:
 
-  NEXT_PUBLIC_SUPABASE_URL=https://mgvfturdwdhlfspjspxd.supabase.co
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
-  ADMIN_EMAIL=admin@nagarage.com
+  NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+  ADMIN_EMAIL=seu@email.com
   ADMIN_PASSWORD=SuaSenhaSegura123
   SUPABASE_SERVICE_ROLE_KEY=sb_secret_...
 `)
