@@ -10,6 +10,8 @@ export type EarningEntry = {
   id: string
   amount: number
   category: EarningCategory
+  /** Número de clientes/atendimentos neste registro (padrão: 1) */
+  clientCount: number
   note?: string
   createdAt: string
 }

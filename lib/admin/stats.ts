@@ -51,6 +51,7 @@ export type DashboardStats = {
   personalRecord: number
   personalRecordDate: string | null
   entriesToday: number
+  clientsThisMonth: number
   ticketMedio: number
   last7Days: DayTotal[]
   monthDays: DayTotal[]
@@ -91,12 +92,28 @@ function sumMoneyForYearUpToDate(items: MoneyEntry[], refDate: Date) {
     .reduce((acc, e) => acc + e.amount, 0)
 }
 
+function clientsOf(entry: EarningEntry) {
+  return entry.clientCount ?? 1
+}
+
+function sumClientsForDay(entries: EarningEntry[], day: Date) {
+  return entries
+    .filter((e) => isSameDay(new Date(e.createdAt), day))
+    .reduce((acc, e) => acc + clientsOf(e), 0)
+}
+
 function sumForDay(entries: EarningEntry[], day: Date) {
   return sumMoneyForDay(entries, day)
 }
 
 function sumForMonth(entries: EarningEntry[], date: Date) {
   return sumMoneyForMonth(entries, date)
+}
+
+function sumClientsForMonth(entries: EarningEntry[], date: Date) {
+  return entries
+    .filter((e) => isSameMonth(new Date(e.createdAt), date))
+    .reduce((acc, e) => acc + clientsOf(e), 0)
 }
 
 function percentChange(current: number, previous: number) {
@@ -263,11 +280,8 @@ export function computeStats(
   const dailyAverage = thisMonthTotal / daysInMonthSoFar
   const monthlyProjection = dailyAverage * (daysInMonthSoFar + daysLeftInMonth)
 
-  const todayEntries = entries.filter((e) =>
-    isSameDay(new Date(e.createdAt), today)
-  )
-  const ticketMedio =
-    todayEntries.length > 0 ? todayTotal / todayEntries.length : 0
+  const clientsToday = sumClientsForDay(entries, today)
+  const ticketMedio = clientsToday > 0 ? todayTotal / clientsToday : 0
 
   const last7Days: DayTotal[] = Array.from({ length: 7 }, (_, i) => {
     const date = subDays(today, 6 - i)
@@ -296,7 +310,7 @@ export function computeStats(
     const current = categoryMap.get(entry.category) ?? { total: 0, count: 0 }
     categoryMap.set(entry.category, {
       total: current.total + entry.amount,
-      count: current.count + 1,
+      count: current.count + clientsOf(entry),
     })
   })
 
@@ -343,7 +357,8 @@ export function computeStats(
     bestWeekday: calcBestWeekday(entries),
     personalRecord: record,
     personalRecordDate: recordDate,
-    entriesToday: todayEntries.length,
+    entriesToday: clientsToday,
+    clientsThisMonth: sumClientsForMonth(entries, today),
     ticketMedio,
     last7Days,
     monthDays,

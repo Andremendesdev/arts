@@ -98,9 +98,14 @@ export function useFinances() {
   )
 
   const addEntry = useCallback(
-    async (amount: number, category: EarningCategory, note?: string) => {
+    async (
+      amount: number,
+      category: EarningCategory,
+      clientCount: number,
+      note?: string
+    ) => {
       try {
-        const entry = await insertEntry(amount, category, note)
+        const entry = await insertEntry(amount, category, clientCount, note)
         setEntries((prev) => [entry, ...prev])
         setError(null)
       } catch (err) {

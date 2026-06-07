@@ -164,8 +164,9 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
         <>
           <div className="divide-y divide-[#1a1a1a]">
             {/* table head */}
-            <div className="hidden grid-cols-[2fr_1fr_1fr_40px] gap-4 px-6 py-2 sm:grid">
+            <div className="hidden grid-cols-[2fr_1fr_1fr_1fr_40px] gap-4 px-6 py-2 sm:grid">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-[#444]">Categoria / Observação</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-[#444]">Clientes</span>
               <span className="text-[10px] font-semibold uppercase tracking-widest text-[#444]">Data</span>
               <span className="text-right text-[10px] font-semibold uppercase tracking-widest text-[#444]">Valor</span>
               <span />
@@ -173,16 +174,16 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
 
             {paginated.map((entry) => {
               const cat = EARNING_CATEGORIES.find((c) => c.value === entry.category)
+              const clients = entry.clientCount ?? 1
               const isRemoving = removingId === entry.id
               return (
                 <div
                   key={entry.id}
                   className={cn(
-                    "group grid grid-cols-[1fr_40px] gap-3 px-6 py-3.5 transition-colors hover:bg-white/[0.02] sm:grid-cols-[2fr_1fr_1fr_40px]",
+                    "group grid grid-cols-[1fr_40px] gap-3 px-6 py-3.5 transition-colors hover:bg-white/[0.02] sm:grid-cols-[2fr_1fr_1fr_1fr_40px]",
                     isRemoving && "opacity-50"
                   )}
                 >
-                  {/* cat + note */}
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#ffea00]/8 text-base">
                       {cat?.emoji ?? "📌"}
@@ -191,7 +192,7 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
                       <p className="text-sm font-semibold text-[#ffea00]">
                         {formatCurrencyDetailed(entry.amount)}
                         <span className="ml-2 text-xs font-normal text-[#555] sm:hidden">
-                          · {cat?.label}
+                          · {clients} {clients === 1 ? "cliente" : "clientes"}
                         </span>
                       </p>
                       <p className="truncate text-xs text-[#555]">
@@ -200,14 +201,18 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
                     </div>
                   </div>
 
-                  {/* date — hidden on xs */}
+                  <div className="hidden items-center sm:flex">
+                    <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs font-medium text-[#888]">
+                      {clients} {clients === 1 ? "cliente" : "clientes"}
+                    </span>
+                  </div>
+
                   <div className="hidden items-center sm:flex">
                     <span className="text-xs text-[#555]">
                       {format(parseISO(entry.createdAt), "dd MMM · HH:mm", { locale: ptBR })}
                     </span>
                   </div>
 
-                  {/* value — hidden on xs (shown inline above) */}
                   <div className="hidden items-center justify-end sm:flex">
                     <span className="text-sm font-bold text-white">
                       {formatCurrencyDetailed(entry.amount)}

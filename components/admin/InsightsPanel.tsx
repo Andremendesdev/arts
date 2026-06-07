@@ -10,6 +10,7 @@ import {
   CalendarDays,
   Scissors,
   Star,
+  Users,
 } from "lucide-react"
 import type { DashboardStats } from "@/lib/admin/stats"
 import { formatCurrency, formatShortDate } from "@/lib/admin/format"
@@ -158,7 +159,7 @@ export default function InsightsPanel({
           icon={Scissors}
           label="Ticket médio"
           value={formatCurrency(stats.ticketMedio)}
-          hint="Média hoje"
+          hint="Por cliente hoje"
         />
         <MiniStat
           icon={Star}
@@ -167,10 +168,16 @@ export default function InsightsPanel({
           hint="Maior faturamento"
         />
         <MiniStat
-          icon={CalendarDays}
+          icon={Users}
           label="Atendimentos"
           value={String(stats.entriesToday)}
-          hint="Registros hoje"
+          hint="Clientes atendidos hoje"
+        />
+        <MiniStat
+          icon={CalendarDays}
+          label="Clientes no mês"
+          value={String(stats.clientsThisMonth)}
+          hint="Total de atendimentos"
         />
       </div>
 

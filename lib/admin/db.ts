@@ -6,6 +6,7 @@ type EarningRow = {
   id: string
   amount: number
   category: string
+  client_count: number | null
   note: string | null
   created_at: string
 }
@@ -21,6 +22,7 @@ function mapRow(row: EarningRow): EarningEntry {
     id: row.id,
     amount: Number(row.amount),
     category: row.category as EarningCategory,
+    clientCount: Math.max(1, Number(row.client_count ?? 1)),
     note: row.note ?? undefined,
     createdAt: row.created_at,
   }
@@ -34,7 +36,7 @@ export async function fetchEntries(): Promise<EarningEntry[]> {
   const supabase = createClient()
   const { data, error } = await supabase
     .from("earnings")
-    .select("id, amount, category, note, created_at")
+    .select("id, amount, category, client_count, note, created_at")
     .order("created_at", { ascending: false })
 
   if (error) throwDb(error)
@@ -44,13 +46,19 @@ export async function fetchEntries(): Promise<EarningEntry[]> {
 export async function insertEntry(
   amount: number,
   category: EarningCategory,
+  clientCount: number,
   note?: string
 ): Promise<EarningEntry> {
   const supabase = createClient()
   const { data, error } = await supabase
     .from("earnings")
-    .insert({ amount, category, note: note ?? null })
-    .select("id, amount, category, note, created_at")
+    .insert({
+      amount,
+      category,
+      client_count: Math.max(1, Math.floor(clientCount)),
+      note: note ?? null,
+    })
+    .select("id, amount, category, client_count, note, created_at")
     .single()
 
   if (error) throwDb(error)
@@ -99,6 +107,7 @@ export async function importEntries(entries: EarningEntry[]): Promise<void> {
     id: entry.id,
     amount: entry.amount,
     category: entry.category,
+    client_count: entry.clientCount ?? 1,
     note: entry.note ?? null,
     created_at: entry.createdAt,
   }))

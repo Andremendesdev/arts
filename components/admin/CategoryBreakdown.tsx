@@ -37,7 +37,7 @@ export default function CategoryBreakdown({
                     <span className="shrink-0">{cat.emoji}</span>
                     <span className="truncate text-sm text-[#ccc]">{cat.label}</span>
                     <span className="shrink-0 rounded-full bg-white/5 px-1.5 py-0.5 text-[10px] text-[#555]">
-                      {cat.count}x
+                      {cat.count} {cat.count === 1 ? "cliente" : "clientes"}
                     </span>
                   </div>
                   <span className="shrink-0 text-sm font-semibold text-white">
