@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Scissors, Guitar, Zap, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import StatusBadge from "./StatusBadge";
+import { siteName } from "@/lib/site/env";
 
 export default function Navbar({ statusOverride = "auto" }: { statusOverride?: string }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,15 +24,13 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Adicionado 'relative' aqui para ancorar o menu centralizado */}
         <div className="relative flex justify-between items-center h-16 text-white">
-          {/* Lado Esquerdo: Ícones (alinhados ao centro) */}
+          {/* Lado Esquerdo: Logo / nome */}
           <div className="flex items-center gap-2 sm:gap-4">
-            <Scissors size={16} className="text-white sm:size-5" />
-
             <span className="text-[10px] sm:text-sm font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-white uppercase">
-              Na Garage
+              {siteName}
             </span>
 
-            <span className="text-[10px] sm:text-sm font-medium tracking-[0.12em] sm:tracking-[0.2em] text-yellow-400 uppercase">
+            <span className="text-[10px] sm:text-sm font-medium tracking-[0.12em] sm:tracking-[0.2em] text-sky-400 uppercase">
               Barbearia
             </span>
           </div>
@@ -39,7 +38,7 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
           <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center">
             <div className="flex gap-8 font-medium text-sm uppercase tracking-wide">
               <a
-                className="hover:text-yellow-500 transition-colors cursor-pointer"
+                className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
                   document
                     .getElementById("gallery")
@@ -50,7 +49,7 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
               </a>
 
               <a
-                className="hover:text-yellow-500 transition-colors cursor-pointer"
+                className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
                   document
                     .getElementById("services")
@@ -61,7 +60,7 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
               </a>
 
               <a
-                className="hover:text-yellow-500 transition-colors cursor-pointer"
+                className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
                   document
                     .getElementById("mapsection")

@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { Scissors } from "lucide-react"; // Importar ícone padrão para fallback
 
-const WHATSAPP_BASE = "https://wa.me/5514997216010?text=";
+import { getWhatsAppUrl, isWhatsAppConfigured } from "@/lib/site/env";
 
 export type ServiceType = {
   _id: string;
@@ -47,8 +47,9 @@ function ServiceCard({
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const handleClick = () => {
-    const url = `${WHATSAPP_BASE}${encodeURIComponent(service.whatsappMsg)}`;
-    window.open(url, "_blank");
+    if (!isWhatsAppConfigured) return
+    const url = getWhatsAppUrl(service.whatsappMsg)
+    if (url) window.open(url, "_blank")
   };
 
   return (
@@ -73,10 +74,10 @@ function ServiceCard({
       onHoverStart={(e) => {
         (e.target as HTMLElement)
           .closest("article")
-          ?.style.setProperty("border-color", "#ffea00");
+          ?.style.setProperty("border-color", "#38bdf8");
         (e.target as HTMLElement)
           .closest("article")
-          ?.style.setProperty("box-shadow", "0 16px 48px rgba(255,234,0,0.12)");
+          ?.style.setProperty("box-shadow", "0 16px 48px rgba(56,189,248,0.12)");
       }}
       onHoverEnd={(e) => {
         (e.target as HTMLElement)
@@ -90,7 +91,7 @@ function ServiceCard({
       {/* Icon */}
       <div
         className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6 transition-all duration-300"
-        style={{ background: "rgba(255,234,0,0.08)", color: "#ffea00" }}
+        style={{ background: "rgba(56,189,248,0.08)", color: "#38bdf8" }}
       >
         {getIcon(service.iconName)}
       </div>
@@ -98,7 +99,7 @@ function ServiceCard({
       {/* Title */}
       <h3
         className="font-serif text-2xl font-bold mb-3"
-        style={{ color: "#ffea00" }}
+        style={{ color: "#38bdf8" }}
       >
         {service.title}
       </h3>
@@ -113,7 +114,7 @@ function ServiceCard({
         <span className="text-2xl font-bold text-white">{service.price}</span>
         <span
           className="text-xs tracking-widest uppercase transition-all duration-300"
-          style={{ color: "#ffea00", opacity: 0.7 }}
+          style={{ color: "#38bdf8", opacity: 0.7 }}
         >
           Consultar via WhatsApp →
         </span>
@@ -141,13 +142,13 @@ export default function Services({ services = [] }: { services?: ServiceType[] }
             O que oferecemos
           </span>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide">
-            Nossos <span className="gold-glow text-[#ffea00]">Serviços</span>
+            Nossos <span className="gold-glow text-[#38bdf8]">Serviços</span>
           </h2>
           <div
             className="mx-auto mt-6 h-px w-16"
             style={{
               background:
-                "linear-gradient(to right, transparent, #ffea00, transparent)",
+                "linear-gradient(to right, transparent, #38bdf8, transparent)",
             }}
           />
         </motion.div>

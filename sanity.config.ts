@@ -1,13 +1,11 @@
 import { defineConfig } from "sanity";
-import { deskTool } from "sanity/desk";
-import { schema } from "./sanity/schemaTypes";
-
-// Temporary fallback for deskTool if using sanity v3 directly
-// Actually the new import is from 'sanity/structure' or 'sanity/desk' depending on version. Let's use the standard one.
 import { structureTool } from 'sanity/structure'
+import { schema } from "./sanity/schemaTypes";
+import { isSanityConfigured, projectId, dataset } from "./sanity/env";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "qw9690w6";
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+if (!isSanityConfigured) {
+  throw new Error("Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID");
+}
 
 export default defineConfig({
   basePath: "/studio",

@@ -98,8 +98,8 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
     <div className="overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[#151515]">
       <div className="border-b border-[#222] px-6 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex size-9 items-center justify-center rounded-xl bg-[#ffea00]/15">
-            <Plus className="size-4 text-[#ffea00]" />
+          <div className="flex size-9 items-center justify-center rounded-xl bg-[#38bdf8]/15">
+            <Plus className="size-4 text-[#38bdf8]" />
           </div>
           <div>
             <h2 className="text-base font-bold text-white">Registrar ganho</h2>
@@ -136,7 +136,7 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
                     if (amountError) setAmountError("")
                   }}
                   className={cn(
-                    "h-12 border-[#2a2a2a] bg-[#0f0f0f] pl-9 text-lg font-bold text-white placeholder:text-[#333] focus:border-[#ffea00]/50",
+                    "h-12 border-[#2a2a2a] bg-[#0f0f0f] pl-9 text-lg font-bold text-white placeholder:text-[#333] focus:border-[#38bdf8]/50",
                     amountError && "border-red-500/50 focus:border-red-500"
                   )}
                 />
@@ -163,7 +163,7 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
                     if (clientsError) setClientsError("")
                   }}
                   className={cn(
-                    "h-12 border-[#2a2a2a] bg-[#0f0f0f] pl-9 text-lg font-bold text-white placeholder:text-[#333] focus:border-[#ffea00]/50",
+                    "h-12 border-[#2a2a2a] bg-[#0f0f0f] pl-9 text-lg font-bold text-white placeholder:text-[#333] focus:border-[#38bdf8]/50",
                     clientsError && "border-red-500/50 focus:border-red-500"
                   )}
                 />
@@ -177,7 +177,7 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
           {previewTicket !== null && (
             <p className="rounded-lg border border-[#222] bg-[#0f0f0f] px-3 py-2 text-xs text-[#666]">
               Ticket médio deste registro:{" "}
-              <span className="font-semibold text-[#ffea00]">
+              <span className="font-semibold text-[#38bdf8]">
                 {formatCurrency(previewTicket)}
               </span>
               {" "}por cliente
@@ -197,7 +197,7 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
                   className={cn(
                     "rounded-xl border py-2.5 text-center text-xs font-medium transition-all",
                     category === cat.value
-                      ? "border-[#ffea00]/60 bg-[#ffea00]/10 text-[#ffea00]"
+                      ? "border-[#38bdf8]/60 bg-[#38bdf8]/10 text-[#38bdf8]"
                       : "border-[#222] bg-[#0f0f0f] text-[#666] hover:border-[#333] hover:text-[#999]"
                   )}
                 >
@@ -216,14 +216,14 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
               placeholder="Turno da tarde, promoção..."
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="border-[#2a2a2a] bg-[#0f0f0f] text-white placeholder:text-[#333] focus:border-[#ffea00]/50"
+              className="border-[#2a2a2a] bg-[#0f0f0f] text-white placeholder:text-[#333] focus:border-[#38bdf8]/50"
             />
           </div>
 
           <Button
             type="submit"
             disabled={submitting}
-            className="h-11 w-full bg-[#ffea00] font-bold text-black hover:bg-[#ffe033] disabled:opacity-50"
+            className="h-11 w-full bg-[#38bdf8] font-bold text-black hover:bg-[#7dd3fc] disabled:opacity-50"
           >
             {submitting ? (
               <Loader2 className="size-4 animate-spin" />
@@ -236,7 +236,7 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
 
         <div className="mt-5 border-t border-[#1e1e1e] pt-4">
           <p className="mb-2.5 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#555]">
-            <Zap className="size-3 text-[#ffea00]" />
+            <Zap className="size-3 text-[#38bdf8]" />
             Atalhos rápidos <span className="normal-case tracking-normal text-[#444]">(1 cliente)</span>
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -246,7 +246,7 @@ export default function AddEarningPanel({ onAdd }: AddEarningPanelProps) {
                 type="button"
                 disabled={submitting}
                 onClick={() => quickAdd(v)}
-                className="rounded-lg border border-[#222] bg-[#0a0a0a] px-3 py-1.5 text-xs font-semibold text-[#888] transition-all hover:border-[#ffea00]/40 hover:text-[#ffea00] disabled:opacity-40"
+                className="rounded-lg border border-[#222] bg-[#0a0a0a] px-3 py-1.5 text-xs font-semibold text-[#888] transition-all hover:border-[#38bdf8]/40 hover:text-[#38bdf8] disabled:opacity-40"
               >
                 {formatCurrency(v)}
               </button>

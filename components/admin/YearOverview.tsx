@@ -19,7 +19,7 @@ import { formatCurrency } from "@/lib/admin/format"
 const chartConfig = {
   total: {
     label: "Mês",
-    color: "#ffea00",
+    color: "#38bdf8",
   },
 } satisfies ChartConfig
 
@@ -42,7 +42,7 @@ export default function YearOverview({ data, yearTotal }: YearOverviewProps) {
           </div>
           <div className="text-right">
             <p className="text-xs text-[#555]">Total {new Date().getFullYear()}</p>
-            <p className="text-xl font-bold text-[#ffea00]">
+            <p className="text-xl font-bold text-[#38bdf8]">
               {formatCurrency(yearTotal)}
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function YearOverview({ data, yearTotal }: YearOverviewProps) {
                 tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(v)}
               />
               <ChartTooltip
-                cursor={{ fill: "rgba(255,234,0,0.05)" }}
+                cursor={{ fill: "rgba(56,189,248,0.05)" }}
                 content={
                   <ChartTooltipContent
                     formatter={(value) => formatCurrency(Number(value))}
@@ -82,7 +82,7 @@ export default function YearOverview({ data, yearTotal }: YearOverviewProps) {
                 {data.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={index === currentMonth ? "#ffea00" : "#ffea00"}
+                    fill={index === currentMonth ? "#38bdf8" : "#38bdf8"}
                     opacity={index === currentMonth ? 1 : 0.35}
                   />
                 ))}

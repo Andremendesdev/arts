@@ -1,7 +1,7 @@
 import type { AdminSettings, EarningEntry } from "./types"
 
-const ENTRIES_KEY = "nagarage-earnings"
-const SETTINGS_KEY = "nagarage-admin-settings"
+const ENTRIES_KEY = "barbershop-earnings"
+const SETTINGS_KEY = "barbershop-admin-settings"
 
 export function loadLocalEntries(): EarningEntry[] {
   if (typeof window === "undefined") return []

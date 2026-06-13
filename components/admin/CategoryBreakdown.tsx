@@ -53,10 +53,10 @@ export default function CategoryBreakdown({
                       width: `${cat.percent}%`,
                       background:
                         idx === 0
-                          ? "#ffea00"
+                          ? "#38bdf8"
                           : idx === 1
-                          ? "#ffea0099"
-                          : "#ffea0055",
+                          ? "#38bdf899"
+                          : "#38bdf855",
                     }}
                   />
                 </div>

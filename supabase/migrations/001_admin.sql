@@ -1,4 +1,4 @@
--- Painel admin Na Garage — rode no SQL Editor do Supabase
+-- Painel admin — rode no SQL Editor do Supabase
 
 create table if not exists public.earnings (
   id uuid primary key default gen_random_uuid(),

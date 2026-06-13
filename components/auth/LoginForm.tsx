@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { translateAuthError } from "@/lib/supabase/errors"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { siteName } from "@/lib/site/env"
 
 const ERROR_MESSAGES: Record<string, string> = {
   unauthorized: "Acesso negado. Use o e-mail configurado em ADMIN_EMAIL.",
@@ -66,10 +67,10 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-md">
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-[#ffea00]/15">
-          <Scissors className="size-7 text-[#ffea00]" />
+        <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-[#38bdf8]/15">
+          <Scissors className="size-7 text-[#38bdf8]" />
         </div>
-        <h1 className="font-serif text-3xl font-bold text-white">Na Garage</h1>
+        <h1 className="font-serif text-3xl font-bold text-white">{siteName}</h1>
         <p className="mt-2 text-sm text-[#888]">Acesso administrativo</p>
       </div>
 
@@ -126,7 +127,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={submitting || loading}
-          className="mt-6 h-11 w-full bg-[#ffea00] font-semibold text-black hover:bg-[#ffe033] disabled:opacity-60"
+          className="mt-6 h-11 w-full bg-[#38bdf8] font-semibold text-black hover:bg-[#7dd3fc] disabled:opacity-60"
         >
           {submitting || loading ? (
             <>

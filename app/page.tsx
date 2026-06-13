@@ -7,16 +7,29 @@ import MapSection from "@/components/barbearia/MapSection";
 import Footer from "@/components/barbearia/Footer";
 import FloatingWhatsApp from "@/components/barbearia/FloatingWhatsApp";
 import Preview from "@/components/barbearia/Preview";
-import { client } from "@/sanity/lib/client";
+import { getSanityClient } from "@/sanity/lib/client";
+import { isSanityConfigured } from "@/sanity/env";
 
 export const revalidate = 60; // Revalida a cada 60 segundos
 
 export default async function Page() {
-  // Buscar as configurações e dados do Sanity
-  const siteSettings = await client.fetch(`*[_type == "siteSettings"][0]`);
-  const services = await client.fetch(`*[_type == "service"] | order(order asc)`);
-  const galleryPhotos = await client.fetch(`*[_type == "galleryPhoto"] | order(order asc)`);
-  const canalhaPhotos = await client.fetch(`*[_type == "canalhaPhoto"] | order(order asc)`);
+  let siteSettings: { statusOverride?: string } | null = null;
+  let services: Awaited<ReturnType<ReturnType<typeof getSanityClient>["fetch"]>>[] =
+    [];
+  let galleryPhotos: typeof services = [];
+  let canalhaPhotos: typeof services = [];
+
+  if (isSanityConfigured) {
+    const client = getSanityClient();
+    siteSettings = await client.fetch(`*[_type == "siteSettings"][0]`);
+    services = await client.fetch(`*[_type == "service"] | order(order asc)`);
+    galleryPhotos = await client.fetch(
+      `*[_type == "galleryPhoto"] | order(order asc)`
+    );
+    canalhaPhotos = await client.fetch(
+      `*[_type == "canalhaPhoto"] | order(order asc)`
+    );
+  }
 
   const statusOverride = siteSettings?.statusOverride || "auto";
 

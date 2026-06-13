@@ -2,10 +2,11 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getAdminEmail, isAdminEmail } from "@/lib/auth/admin"
 import { createClient } from "@/lib/supabase/server"
+import { siteName } from "@/lib/site/env"
 
 export const metadata: Metadata = {
-  title: "Admin | Na Garage",
-  description: "Painel de ganhos da barbearia",
+  title: `Admin | ${siteName}`,
+  description: "Painel administrativo da barbearia",
 }
 
 export default async function AdminLayout({

@@ -107,7 +107,7 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
               placeholder="Buscar por observação..."
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(1) }}
-              className="h-9 w-full rounded-lg border border-[#222] bg-[#0f0f0f] pl-9 pr-3 text-sm text-white placeholder:text-[#444] outline-none focus:border-[#ffea00]/40"
+              className="h-9 w-full rounded-lg border border-[#222] bg-[#0f0f0f] pl-9 pr-3 text-sm text-white placeholder:text-[#444] outline-none focus:border-[#38bdf8]/40"
             />
           </div>
 
@@ -120,7 +120,7 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
                 className={cn(
                   "rounded-lg px-3 py-1.5 text-xs font-semibold transition-all",
                   period === p.value
-                    ? "bg-[#ffea00]/15 text-[#ffea00]"
+                    ? "bg-[#38bdf8]/15 text-[#38bdf8]"
                     : "text-[#666] hover:text-[#999]"
                 )}
               >
@@ -135,7 +135,7 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
             <select
               value={category}
               onChange={(e) => { setCategory(e.target.value); setPage(1) }}
-              className="h-9 rounded-lg border border-[#222] bg-[#0f0f0f] pr-2 pl-2 text-xs text-[#aaa] outline-none focus:border-[#ffea00]/40 cursor-pointer"
+              className="h-9 rounded-lg border border-[#222] bg-[#0f0f0f] pr-2 pl-2 text-xs text-[#aaa] outline-none focus:border-[#38bdf8]/40 cursor-pointer"
             >
               <option value="all">Todas categorias</option>
               {EARNING_CATEGORIES.map((c) => (
@@ -155,7 +155,7 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
             {hasFilters ? "Nenhum resultado para esses filtros" : "Nenhum ganho registrado ainda"}
           </p>
           {hasFilters && (
-            <button onClick={resetFilters} className="text-xs text-[#ffea00] hover:underline">
+            <button onClick={resetFilters} className="text-xs text-[#38bdf8] hover:underline">
               Limpar filtros
             </button>
           )}
@@ -185,11 +185,11 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
                   )}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#ffea00]/8 text-base">
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#38bdf8]/8 text-base">
                       {cat?.emoji ?? "📌"}
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-[#ffea00]">
+                      <p className="text-sm font-semibold text-[#38bdf8]">
                         {formatCurrencyDetailed(entry.amount)}
                         <span className="ml-2 text-xs font-normal text-[#555] sm:hidden">
                           · {clients} {clients === 1 ? "cliente" : "clientes"}
@@ -265,7 +265,7 @@ export default function RecentEntries({ entries, onRemove }: RecentEntriesProps)
                         className={cn(
                           "flex size-8 items-center justify-center rounded-lg text-xs font-semibold transition-all",
                           safePage === p
-                            ? "bg-[#ffea00]/15 text-[#ffea00]"
+                            ? "bg-[#38bdf8]/15 text-[#38bdf8]"
                             : "border border-[#222] text-[#666] hover:border-[#333] hover:text-white"
                         )}
                       >

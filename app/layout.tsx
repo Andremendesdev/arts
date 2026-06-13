@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { DEFAULT_SITE_NAME, siteName } from "@/lib/site/env";
+
+const displayName = siteName || DEFAULT_SITE_NAME;
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -17,10 +20,10 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Na Garage Barbearia | Desde 2019 – Piraju",
+  title: `${displayName} | Barbearia`,
 
   description:
-    "Barbearia Na Garage. Cortes modernos, barba, cabelo e bigode com estilo e qualidade. Atendimento de respeito, sem frescura. Saia bonito!",
+    `${displayName}. Cortes modernos, barba e estilo com qualidade. Atendimento de respeito, sem frescura.`,
 
   keywords: [
     "barbearia",
@@ -28,15 +31,14 @@ export const metadata: Metadata = {
     "barba",
     "estilo masculino",
     "barbearia premium",
-    "Piraju",
     "cuidados masculinos",
   ],
 
-  authors: [{ name: "Na Garage Barbearia" }],
+  authors: [{ name: displayName }],
 
   openGraph: {
-    title: "Na Garage Barbearia | Premium | Piraju",
-    description: "Descubra a experiência única da nossa barbearia.",
+    title: `${displayName} | Barbearia`,
+    description: "Descubra a experiência da nossa barbearia.",
     type: "website",
     locale: "pt_BR",
   },

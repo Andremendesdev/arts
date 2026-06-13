@@ -4,31 +4,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Barbearia NAGARAGE - Dark Premium Theme */
+  /* Barbearia — Dark Premium Theme */
   --background: oklch(0.07 0 0);         /* #0a0a0a */
   --foreground: oklch(1 0 0);            /* #ffffff */
   --card: oklch(0.11 0 0);               /* #151515 */
   --card-foreground: oklch(1 0 0);
   --popover: oklch(0.11 0 0);
   --popover-foreground: oklch(1 0 0);
-  --primary: oklch(0.96 0.19 102);       /* #ffea00 gold */
-  --primary-foreground: oklch(0.07 0 0); /* dark on gold */
+  --primary: oklch(0.75 0.12 235);       /* sky-400 #38bdf8 */
+  --primary-foreground: oklch(1 0 0);    /* white on sky */
   --secondary: oklch(0.14 0 0);          /* #1f1f1f */
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.14 0 0);
   --muted-foreground: oklch(0.67 0 0);   /* #aaaaaa */
-  --accent: oklch(0.96 0.19 102);        /* gold accent */
-  --accent-foreground: oklch(0.07 0 0);
+  --accent: oklch(0.75 0.12 235);        /* sky accent */
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.18 0 0);             /* #2a2a2a */
   --input: oklch(0.18 0 0);
-  --ring: oklch(0.96 0.19 102);
+  --ring: oklch(0.75 0.12 235);
   --radius: 0.5rem;
 
   /* Custom tokens */
-  --gold: #ffea00;
-  --gold-glow: rgba(255, 234, 0, 0.25);
+  --gold: #38bdf8;
+  --gold-glow: rgba(56,189,248, 0.25);
   --dark-card: #151515;
   --dark-surface: #0f0f0f;
 }
@@ -79,13 +79,114 @@
   }
 }
 
-/* Gold neon text */
+/* Accent glow text */
 .gold-glow {
   color: var(--gold);
   text-shadow:
-    0 0 2px #ffd000,
-    0 0 8px #ffd000,
-    0 0 16px #ffea00;
+    0 0 2px #7dd3fc,
+    0 0 8px #7dd3fc,
+    0 0 16px #38bdf8;
+}
+
+@keyframes hero-wa-beam-spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes hero-wa-glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 16px rgba(56, 189, 248, 0.32),
+      0 0 32px rgba(56, 189, 248, 0.14);
+  }
+
+  50% {
+    box-shadow:
+      0 0 22px rgba(56, 189, 248, 0.48),
+      0 0 44px rgba(56, 189, 248, 0.2);
+  }
+}
+
+.hero-wa-btn {
+  position: relative;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  padding: 1px;
+  background: rgba(56, 189, 248, 0.35);
+  box-shadow:
+    0 0 16px rgba(56, 189, 248, 0.32),
+    0 0 32px rgba(56, 189, 248, 0.14);
+  animation: hero-wa-glow-pulse 2.8s ease-in-out infinite;
+}
+
+.hero-wa-btn:hover {
+  background: rgba(56, 189, 248, 0.5);
+}
+
+@media (min-width: 768px) {
+  .hero-wa-btn {
+    width: auto;
+  }
+}
+
+.hero-wa-btn__beam {
+  position: absolute;
+  inset: -60%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 288deg,
+    rgba(56, 189, 248, 0.35) 288deg,
+    #38bdf8 312deg,
+    #ffffff 328deg,
+    #7dd3fc 334deg,
+    #38bdf8 344deg,
+    rgba(56, 189, 248, 0.35) 354deg,
+    transparent 360deg
+  );
+  animation: hero-wa-beam-spin 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wa-btn__beam {
+    display: none;
+  }
+
+  .hero-wa-btn {
+    animation: none;
+    background: rgba(56, 189, 248, 0.45);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+  }
+}
+
+.hero-wa-btn__link {
+  color: #0a0a0a;
+  background: linear-gradient(to bottom, #7dd3fc 0%, #38bdf8 45%, #0ea5e9 100%);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 14px rgba(56, 189, 248, 0.35);
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    text-shadow 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hero-wa-btn__link:hover {
+  color: #38bdf8;
+  background: #0a0a0a;
+  text-shadow:
+    0 0 10px rgba(56, 189, 248, 0.75),
+    0 0 22px rgba(56, 189, 248, 0.4);
+  box-shadow:
+    inset 0 0 12px rgba(56, 189, 248, 0.12),
+    0 0 18px rgba(56, 189, 248, 0.55),
+    0 0 36px rgba(56, 189, 248, 0.25);
 }
 
 /* Subtle noise overlay for depth */

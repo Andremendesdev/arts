@@ -43,9 +43,9 @@ const moodConfig = {
   },
   neutral: {
     icon: Zap,
-    color: "text-[#ffea00]",
-    bg: "bg-[#ffea00]/8 border-[#ffea00]/15",
-    bar: "bg-[#ffea00]",
+    color: "text-[#38bdf8]",
+    bg: "bg-[#38bdf8]/8 border-[#38bdf8]/15",
+    bar: "bg-[#38bdf8]",
     label: "Ritmo estável",
   },
   slow: {
@@ -90,7 +90,7 @@ export default function InsightsPanel({
       <div className="overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[#151515]">
         <div className="border-b border-[#1e1e1e] px-5 py-4">
           <div className="flex items-center gap-2">
-            <Target className="size-4 text-[#ffea00]" />
+            <Target className="size-4 text-[#38bdf8]" />
             <h2 className="text-sm font-bold text-white">Meta mensal</h2>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function InsightsPanel({
         <div className="p-5">
           <div className="mb-4 flex items-end justify-between">
             <div>
-              <p className="text-2xl font-bold text-[#ffea00]">
+              <p className="text-2xl font-bold text-[#38bdf8]">
                 {formatCurrency(stats.thisMonth)}
               </p>
               <p className="text-xs text-[#555]">
@@ -141,7 +141,7 @@ export default function InsightsPanel({
                 const val = Number(e.target.value)
                 if (val > 0) onGoalChange(val)
               }}
-              className="h-9 border-[#222] bg-[#0a0a0a] text-sm text-white focus:border-[#ffea00]/40"
+              className="h-9 border-[#222] bg-[#0a0a0a] text-sm text-white focus:border-[#38bdf8]/40"
             />
           </div>
         </div>
@@ -183,9 +183,9 @@ export default function InsightsPanel({
 
       {/* personal record */}
       {stats.personalRecord > 0 && (
-        <div className="flex items-center gap-4 rounded-2xl border border-[#ffea00]/15 bg-gradient-to-r from-[#ffea00]/5 to-transparent p-5">
-          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ffea00]/10">
-            <Trophy className="size-6 text-[#ffea00]" />
+        <div className="flex items-center gap-4 rounded-2xl border border-[#38bdf8]/15 bg-gradient-to-r from-[#38bdf8]/5 to-transparent p-5">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#38bdf8]/10">
+            <Trophy className="size-6 text-[#38bdf8]" />
           </div>
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#666]">

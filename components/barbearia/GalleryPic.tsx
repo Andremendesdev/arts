@@ -64,8 +64,8 @@ function GalleryItem({
         className="absolute inset-0 rounded-2xl pointer-events-none"
         animate={{
           boxShadow: isActive
-            ? "inset 0 0 0 2px rgba(255,234,0,0.5)"
-            : "inset 0 0 0 0px rgba(255,234,0,0)",
+            ? "inset 0 0 0 2px rgba(56,189,248,0.5)"
+            : "inset 0 0 0 0px rgba(56,189,248,0)",
         }}
         transition={{ duration: 0.3 }}
       />
@@ -116,8 +116,8 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
             Clube dos{" "}
             <span
               style={{
-                color: "#ffea00",
-                textShadow: "0 0 10px rgba(255,234,0,0.3)",
+                color: "#38bdf8",
+                textShadow: "0 0 10px rgba(56,189,248,0.3)",
               }}
             >
               Canalhas
@@ -127,7 +127,7 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
             className="mx-auto mt-6 h-px w-16"
             style={{
               background:
-                "linear-gradient(to right, transparent, #ffea00, transparent)",
+                "linear-gradient(to right, transparent, #38bdf8, transparent)",
             }}
           />
         </motion.div>
@@ -154,7 +154,7 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
               <div className="mt-12 flex justify-center">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="px-8 py-3 rounded-full border border-[#ffea00] text-[#ffea00] uppercase tracking-widest text-xs font-bold hover:bg-[#ffea00] hover:text-black transition-all duration-300"
+                  className="px-8 py-3 rounded-full border border-[#38bdf8] text-[#38bdf8] uppercase tracking-widest text-xs font-bold hover:bg-[#38bdf8] hover:text-white transition-all duration-300"
                 >
                   Ver Mais
                 </button>
@@ -177,11 +177,11 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
             {/* Header do Modal */}
             <div className="p-6 flex justify-between items-center bg-[#0a0a0a] border-b border-zinc-800 sticky top-0 z-10">
               <h3 className="font-serif text-2xl uppercase tracking-wide text-white">
-                Clube dos <span className="text-[#ffea00]">Canalhas</span>
+                Clube dos <span className="text-[#38bdf8]">Canalhas</span>
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-zinc-400 hover:text-[#ffea00] transition-colors"
+                className="p-2 text-zinc-400 hover:text-[#38bdf8] transition-colors"
               >
                 <X size={28} />
               </button>
@@ -205,7 +205,7 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
                         />
                       )}
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute inset-0 rounded-2xl pointer-events-none box-border border-2 border-transparent group-hover:border-[#ffea00]/50 transition-colors duration-300" />
+                      <div className="absolute inset-0 rounded-2xl pointer-events-none box-border border-2 border-transparent group-hover:border-[#38bdf8]/50 transition-colors duration-300" />
                     </div>
                   ))}
                 </div>

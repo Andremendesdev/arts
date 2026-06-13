@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
+import { siteName } from "@/lib/site/env"
 
 export const metadata: Metadata = {
-  title: "Login | Na Garage",
+  title: `Login | ${siteName}`,
   description: "Acesso administrativo",
 }
 

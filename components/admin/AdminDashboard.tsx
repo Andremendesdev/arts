@@ -26,6 +26,7 @@ import RecentExpenses from "./RecentExpenses"
 import InsightsPanel from "./InsightsPanel"
 import LogoutButton from "@/components/auth/LogoutButton"
 import { cn } from "@/lib/utils"
+import { siteName } from "@/lib/site/env"
 
 const WeeklyChart = dynamic(() => import("./WeeklyChart"), {
   ssr: false,
@@ -81,8 +82,8 @@ export default function AdminDashboard() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#0a0a0a]">
         <div className="flex flex-col items-center gap-4 text-center">
-          <div className="flex size-16 items-center justify-center rounded-2xl bg-[#ffea00]/10">
-            <Scissors className="size-8 animate-pulse text-[#ffea00]" />
+          <div className="flex size-16 items-center justify-center rounded-2xl bg-[#38bdf8]/10">
+            <Scissors className="size-8 animate-pulse text-[#38bdf8]" />
           </div>
           <div>
             <p className="font-semibold text-white">Carregando painel...</p>
@@ -104,7 +105,7 @@ export default function AdminDashboard() {
             <p className="text-sm text-[#888]">{error}</p>
             <div className="mt-4 rounded-xl bg-[#0f0f0f] px-4 py-3 text-xs text-[#555]">
               Execute o SQL em{" "}
-              <code className="text-[#ffea00]">supabase/migrations/001_admin.sql</code>{" "}
+              <code className="text-[#38bdf8]">supabase/migrations/001_admin.sql</code>{" "}
               no SQL Editor do Supabase.
             </div>
           </div>
@@ -123,17 +124,17 @@ export default function AdminDashboard() {
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
           <Link
             href="/"
-            className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-[#555] transition-colors hover:text-[#ffea00]"
+            className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-[#555] transition-colors hover:text-[#38bdf8]"
           >
             <ArrowLeft className="size-4" />
             <span className="hidden sm:inline">Voltar ao site</span>
           </Link>
 
           <div className="flex items-center gap-2">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-[#ffea00]/15">
-              <Scissors className="size-4 text-[#ffea00]" />
+            <div className="flex size-8 items-center justify-center rounded-lg bg-[#38bdf8]/15">
+              <Scissors className="size-4 text-[#38bdf8]" />
             </div>
-            <span className="text-sm font-bold text-white">Na Garage</span>
+            <span className="text-sm font-bold text-white">{siteName}</span>
             <span className="hidden rounded-md bg-[#1a1a1a] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-[#555] sm:inline">
               Admin
             </span>

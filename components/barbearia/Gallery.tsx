@@ -69,8 +69,8 @@ function GalleryItem({
         className="absolute inset-0 rounded-2xl pointer-events-none"
         animate={{
           boxShadow: isActive
-            ? "inset 0 0 0 2px rgba(255,234,0,0.5)"
-            : "inset 0 0 0 0px rgba(255,234,0,0)",
+            ? "inset 0 0 0 2px rgba(56,189,248,0.5)"
+            : "inset 0 0 0 0px rgba(56,189,248,0)",
         }}
         transition={{ duration: 0.3 }}
       />
@@ -107,8 +107,8 @@ export default function Gallery({ photos = [] }: { photos?: PhotoType[] }) {
             A{" "}
             <span
               style={{
-                color: "#ffea00",
-                textShadow: "0 0 10px rgba(255,234,0,0.3)",
+                color: "#38bdf8",
+                textShadow: "0 0 10px rgba(56,189,248,0.3)",
               }}
             >
               Barbearia
@@ -118,7 +118,7 @@ export default function Gallery({ photos = [] }: { photos?: PhotoType[] }) {
             className="mx-auto mt-6 h-px w-16"
             style={{
               background:
-                "linear-gradient(to right, transparent, #ffea00, transparent)",
+                "linear-gradient(to right, transparent, #38bdf8, transparent)",
             }}
           />
         </motion.div>
