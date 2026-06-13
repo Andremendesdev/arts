@@ -88,6 +88,16 @@
     0 0 16px #38bdf8;
 }
 
+.hero-badge-neon {
+  color: #d4d4d8;
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.06);
+  box-shadow:
+    0 0 10px rgba(56, 189, 248, 0.14),
+    inset 0 0 8px rgba(56, 189, 248, 0.05);
+  text-shadow: 0 0 10px rgba(125, 211, 252, 0.28);
+}
+
 @keyframes hero-wa-beam-spin {
   to {
     transform: rotate(-360deg);

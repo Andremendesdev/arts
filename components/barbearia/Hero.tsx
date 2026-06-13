@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { Gem, Scissors, Shirt, ShoppingBag } from "lucide-react";
 import {
   getWhatsAppUrl,
   instagramUrl,
@@ -12,6 +12,12 @@ import {
 
 const HERO_WHATSAPP_MSG =
   "Olá! Vocês estão atendendo hoje? Tô pensando em passar aí — é por ordem de chegada?";
+
+const HERO_TAGS = [
+  { label: "Barbearia", icon: Scissors },
+  { label: "Roupas", icon: Shirt },
+  { label: "Acessórios", icon: Gem },
+] as const;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -84,9 +90,9 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               custom={0.1}
-              className="inline-block text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.35em] uppercase text-zinc-400 mb-4 md:mb-5 border border-zinc-700 rounded-full px-4 py-1.5"
+              className="hero-badge-neon inline-block text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.35em] uppercase mb-4 md:mb-5 border rounded-full px-4 py-1.5"
             >
-              Barbearia · {locationLabel}
+              Barbearia · {locationLabel.replace(/\s*[—–-]\s*Brasil\s*$/i, "")}
             </motion.span>
 
             <motion.h1
@@ -97,7 +103,7 @@ export default function Hero() {
               className="font-serif text-[2.5rem] sm:text-[3.5rem] lg:text-7xl font-bold leading-[0.95] tracking-tight mb-4 md:mb-5"
             >
               {siteName.toUpperCase()}{" "}
-              <span className="gold-glow block">
+              <span className="block text-sky-200 [text-shadow:0_0_4px_#e0f2fe,0_0_12px_#7dd3fc,0_0_24px_#38bdf8]">
                 Barber <span className="font-sans font-normal">&amp;</span> Shop
               </span>
             </motion.h1>
@@ -113,7 +119,8 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          <div className="mx-auto flex w-full max-w-xs flex-col items-center gap-3 md:mx-0 md:w-fit md:max-w-none md:flex-row md:items-stretch md:gap-3">
+          <div className="mx-auto flex w-full max-w-xs flex-col items-center gap-3 md:mx-0 md:w-fit md:max-w-none">
+            <div className="flex w-full flex-col items-center gap-3 md:flex-row md:items-stretch md:gap-3">
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -172,6 +179,25 @@ export default function Hero() {
             <ShoppingBag className="size-3.5 shrink-0" aria-hidden="true" />
             Ver Coleção
           </motion.a>
+            </div>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={0.75}
+              className="flex flex-wrap items-center justify-center gap-2 md:justify-start"
+            >
+              {HERO_TAGS.map(({ label, icon: Icon }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-zinc-700/90 bg-zinc-950/70 px-3 py-1.5 text-[9px] md:text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-400 shadow-[inset_0_0_0_1px_rgba(56,189,248,0.06)]"
+                >
+                  <Icon className="size-3 shrink-0 text-sky-400/75" aria-hidden="true" />
+                  {label}
+                </span>
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>

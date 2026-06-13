@@ -1,9 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Kaushan_Script } from "next/font/google";
 import { motion } from "framer-motion";
 import StatusBadge from "./StatusBadge";
 import { siteName } from "@/lib/site/env";
+
+const brandScript = Kaushan_Script({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
 export default function Navbar({ statusOverride = "auto" }: { statusOverride?: string }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,20 +30,18 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Adicionado 'relative' aqui para ancorar o menu centralizado */}
-        <div className="relative flex justify-between items-center h-16 text-white">
-          {/* Lado Esquerdo: Logo / nome */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            <span className="text-[10px] sm:text-sm font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-white uppercase">
-              {siteName}
-            </span>
+        <div className="relative grid grid-cols-3 items-center h-16 text-white">
+          {/* Esquerda: menu mobile / links desktop */}
+          <div className="flex items-center justify-start">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 hover:bg-white/10 rounded-full transition-colors md:hidden"
+              aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
 
-            <span className="text-[10px] sm:text-sm font-medium tracking-[0.12em] sm:tracking-[0.2em] text-sky-400 uppercase">
-              Barbearia
-            </span>
-          </div>
-          {/* CENTRO (Desktop): Links de navegação cravados no meio */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center">
-            <div className="flex gap-8 font-medium text-sm uppercase tracking-wide">
+            <div className="hidden md:flex gap-8 font-medium text-sm uppercase tracking-wide">
               <a
                 className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
@@ -72,20 +77,18 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
             </div>
           </div>
 
-          {/* Lado Direito Desktop: Apenas o StatusBadge */}
-          <div className="hidden md:flex items-center">
-            <StatusBadge statusOverride={statusOverride} />
+          {/* Centro: nome */}
+          <div className="flex items-center justify-center">
+            <span
+              className={`${brandScript.className} text-xl sm:text-2xl leading-none text-white normal-case tracking-normal text-center`}
+            >
+              {siteName}
+            </span>
           </div>
 
-          {/* Mobile: Alinhado e com espaço correto */}
-          <div className="flex items-center gap-4 md:hidden">
+          {/* Direita: status */}
+          <div className="flex items-center justify-end">
             <StatusBadge inline statusOverride={statusOverride} />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
       </div>
