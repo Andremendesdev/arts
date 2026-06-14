@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useMounted } from "@/hooks/use-mounted";
 
 interface StatusInfo {
   open: boolean;
@@ -32,17 +33,20 @@ interface StatusBadgeProps {
 }
 
 export default function StatusBadge({ inline = false, statusOverride = "auto" }: StatusBadgeProps) {
+  const mounted = useMounted();
   const [status, setStatus] = useState<StatusInfo>({
     open: false,
     label: "Verificando...",
   });
 
   useEffect(() => {
+    if (!mounted) return;
+
     setStatus(getStatus(statusOverride));
-    if (statusOverride !== "auto") return; // Não precisa de timer se for manual
+    if (statusOverride !== "auto") return;
     const interval = setInterval(() => setStatus(getStatus(statusOverride)), 60_000);
     return () => clearInterval(interval);
-  }, [statusOverride]);
+  }, [statusOverride, mounted]);
 
   const positionClass = inline
     ? "rounded-xl border px-3 py-2 backdrop-blur-md"

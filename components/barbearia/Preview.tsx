@@ -1,6 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { M } from "./safe-motion";
+import {
+  sectionTransition,
+  sectionViewport,
+} from "./sectionAnimations";
 import {
   googleReviewUrl,
   isGoogleReviewConfigured,
@@ -27,7 +31,13 @@ export default function Preview() {
     <section className="relative overflow-hidden py-24 bg-[#0a0a0a]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.05),transparent_60%)]" />
 
-      <div className="relative z-10 text-center px-5 mb-14">
+      <M.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={sectionViewport}
+        transition={sectionTransition()}
+        className="relative z-10 text-center px-5 mb-14"
+      >
         <span className="inline-block text-[10px] tracking-[0.35em] uppercase text-zinc-500 border border-zinc-800 rounded-full px-4 py-1.5 mb-5">
           Google Reviews
         </span>
@@ -40,10 +50,10 @@ export default function Preview() {
         <p className="text-zinc-400 mt-5 max-w-xl mx-auto text-sm md:text-base">
           Quem passa por aqui percebe a diferença no atendimento.
         </p>
-      </div>
+      </M.div>
 
       <div className="relative flex overflow-hidden">
-        <motion.div
+        <M.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             duration: 28,
@@ -104,7 +114,7 @@ export default function Preview() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </M.div>
       </div>
 
       {isGoogleReviewConfigured && (
@@ -116,7 +126,7 @@ export default function Preview() {
             </span>
           </p>
 
-          <motion.a
+          <M.a
             href={googleReviewUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -136,7 +146,7 @@ export default function Preview() {
               <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 122.3 24.5 165 64.9l-67 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.2 156.6 153.7 156.6 98.2 0 135.1-70.5 140.8-107H248v-85.8h236.1c2.3 12.7 3.9 24.9 3.9 42z" />
             </svg>
             Avaliar no Google
-          </motion.a>
+          </M.a>
         </div>
       )}
 

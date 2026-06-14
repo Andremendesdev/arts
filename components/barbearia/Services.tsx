@@ -1,9 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRef } from "react";
 import { useInView } from "framer-motion";
-import { Scissors } from "lucide-react"; // Importar ícone padrão para fallback
+import { useRef } from "react";
+import { Scissors } from "lucide-react";
+import { M } from "./safe-motion";
+import {
+  sectionTransition,
+  sectionViewportWide,
+} from "./sectionAnimations";
 
 import { getWhatsAppUrl, isWhatsAppConfigured } from "@/lib/site/env";
 
@@ -16,7 +20,6 @@ export type ServiceType = {
   iconName: string;
 };
 
-// SVG Ícones
 const IconScissors = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
     <path strokeLinecap="round" strokeLinejoin="round" d="M14.121 14.121L19 19m-7-7 7-7-7 7-4.5-4.5L3 3m11 11L7 7" />
@@ -33,7 +36,7 @@ const IconBeard = (
 
 function getIcon(name: string) {
   if (name === "beard") return IconBeard;
-  return IconScissors; // Padrão
+  return IconScissors;
 }
 
 function ServiceCard({
@@ -43,26 +46,18 @@ function ServiceCard({
   service: ServiceType;
   index: number;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   const handleClick = () => {
-    if (!isWhatsAppConfigured) return
-    const url = getWhatsAppUrl(service.whatsappMsg)
-    if (url) window.open(url, "_blank")
+    if (!isWhatsAppConfigured) return;
+    const url = getWhatsAppUrl(service.whatsappMsg);
+    if (url) window.open(url, "_blank");
   };
 
   return (
-    <motion.article
-      id="services"
-      ref={ref}
+    <M.article
       initial={{ opacity: 0, y: 48 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: index * 0.15,
-      }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={sectionViewportWide}
+      transition={sectionTransition(index * 0.15)}
       onClick={handleClick}
       role="button"
       tabIndex={0}
@@ -88,7 +83,6 @@ function ServiceCard({
           ?.style.setProperty("box-shadow", "none");
       }}
     >
-      {/* Icon */}
       <div
         className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6 transition-all duration-300"
         style={{ background: "rgba(56,189,248,0.08)", color: "#38bdf8" }}
@@ -96,7 +90,6 @@ function ServiceCard({
         {getIcon(service.iconName)}
       </div>
 
-      {/* Title */}
       <h3
         className="font-serif text-2xl font-bold mb-3"
         style={{ color: "#38bdf8" }}
@@ -104,12 +97,10 @@ function ServiceCard({
         {service.title}
       </h3>
 
-      {/* Description */}
       <p className="text-zinc-400 text-sm leading-relaxed mb-8">
         {service.description}
       </p>
 
-      {/* Footer row */}
       <div className="flex items-center justify-between">
         <span className="text-2xl font-bold text-white">{service.price}</span>
         <span
@@ -119,30 +110,27 @@ function ServiceCard({
           Consultar via WhatsApp →
         </span>
       </div>
-    </motion.article>
+    </M.article>
   );
 }
 
 export default function Services({ services = [] }: { services?: ServiceType[] }) {
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
-
   return (
-    <section className="py-28 px-6" style={{ background: "#0a0a0a" }}>
+    <section id="services" className="py-28 px-6" style={{ background: "#0a0a0a" }}>
       <div className="max-w-5xl mx-auto">
-        {/* Section heading */}
-        <motion.div
-          ref={titleRef}
+        <M.div
           initial={{ opacity: 0, y: 32 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={sectionViewportWide}
+          transition={sectionTransition()}
           className="text-center mb-16"
         >
           <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 block mb-4">
             O que oferecemos
           </span>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide">
-            Nossos <span className="gold-glow text-[#38bdf8]">Serviços</span>
+            Corte e{" "}
+            <span className="gold-glow text-[#38bdf8]">Estilo</span>
           </h2>
           <div
             className="mx-auto mt-6 h-px w-16"
@@ -151,9 +139,8 @@ export default function Services({ services = [] }: { services?: ServiceType[] }
                 "linear-gradient(to right, transparent, #38bdf8, transparent)",
             }}
           />
-        </motion.div>
+        </M.div>
 
-        {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((service, i) => (
             <ServiceCard key={service._id} service={service} index={i} />
@@ -163,4 +150,3 @@ export default function Services({ services = [] }: { services?: ServiceType[] }
     </section>
   );
 }
-

@@ -1,17 +1,18 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { M } from "./safe-motion";
 import {
+  sectionTransition,
+  sectionViewport,
+} from "./sectionAnimations";
+import {
+  address,
   getMapEmbedUrl,
-  isMapConfigured,
-  locationLabel,
+  isMapAvailable,
   siteName,
 } from "@/lib/site/env";
 
 export default function MapSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   const mapEmbedUrl = getMapEmbedUrl();
 
   return (
@@ -19,7 +20,6 @@ export default function MapSection() {
       id="mapsection"
       className="px-6 pb-0"
       style={{ background: "#080808" }}
-      ref={ref}
     >
       <div className="max-w-5xl mx-auto">
         <div
@@ -30,10 +30,11 @@ export default function MapSection() {
           }}
         />
 
-        <motion.div
+        <M.div
           initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={sectionViewport}
+          transition={sectionTransition()}
           className="text-center mb-10"
         >
           <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 block mb-4">
@@ -42,14 +43,17 @@ export default function MapSection() {
           <h2 className="font-serif text-3xl font-bold">
             Nos <span className="gold-glow">Encontre</span>
           </h2>
-          <p className="text-zinc-500 text-sm mt-2">{locationLabel}</p>
-        </motion.div>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-zinc-400 sm:text-base">
+            {address}
+          </p>
+        </M.div>
 
-        {isMapConfigured && mapEmbedUrl ? (
-          <motion.div
+        {isMapAvailable && mapEmbedUrl ? (
+          <M.div
             initial={{ opacity: 0, scale: 0.97 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={sectionViewport}
+            transition={sectionTransition(0.15)}
             className="overflow-hidden rounded-2xl"
             style={{
               border: "1px solid rgba(56,189,248,0.15)",
@@ -70,11 +74,10 @@ export default function MapSection() {
               referrerPolicy="no-referrer-when-downgrade"
               title={`Localização de ${siteName}`}
             />
-          </motion.div>
+          </M.div>
         ) : (
           <p className="text-center text-sm text-zinc-600 pb-12">
-            Configure NEXT_PUBLIC_MAP_LAT e NEXT_PUBLIC_MAP_LNG no .env.local
-            para exibir o mapa.
+            Endereço indisponível no momento.
           </p>
         )}
       </div>

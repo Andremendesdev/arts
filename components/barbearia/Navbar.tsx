@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Kaushan_Script } from "next/font/google";
-import { motion } from "framer-motion";
+import { M } from "./safe-motion";
 import StatusBadge from "./StatusBadge";
 import { siteName } from "@/lib/site/env";
 
@@ -23,7 +23,7 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
   }, []);
 
   return (
-    <motion.nav
+    <M.nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled ? "bg-black/80 backdrop-blur-md" : "bg-black/70"
       }`}
@@ -42,7 +42,8 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
             </button>
 
             <div className="hidden md:flex gap-8 font-medium text-sm uppercase tracking-wide">
-              <a
+              <button
+                type="button"
                 className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
                   document
@@ -51,9 +52,10 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
                 }}
               >
                 Galeria
-              </a>
+              </button>
 
-              <a
+              <button
+                type="button"
                 className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
                   document
@@ -62,9 +64,10 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
                 }}
               >
                 Serviços
-              </a>
+              </button>
 
-              <a
+              <button
+                type="button"
                 className="hover:text-sky-500 transition-colors cursor-pointer"
                 onClick={() => {
                   document
@@ -73,7 +76,7 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
                 }}
               >
                 Localização
-              </a>
+              </button>
             </div>
           </div>
 
@@ -95,13 +98,14 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
 
       {/* Menu Mobile Corrigido */}
       {isOpen && (
-        <motion.div
+        <M.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-black/95 text-white border-t border-gray-800"
         >
           <div className="flex flex-col p-6 gap-6 text-center text-lg">
-            <a
+            <button
+              type="button"
               className="cursor-pointer"
               onClick={() => {
                 document
@@ -112,9 +116,10 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
               }}
             >
               Galeria
-            </a>
+            </button>
 
-            <a
+            <button
+              type="button"
               className="cursor-pointer"
               onClick={() => {
                 document
@@ -125,9 +130,10 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
               }}
             >
               Serviços
-            </a>
+            </button>
 
-            <a
+            <button
+              type="button"
               className="cursor-pointer"
               onClick={() => {
                 document
@@ -138,10 +144,10 @@ export default function Navbar({ statusOverride = "auto" }: { statusOverride?: s
               }}
             >
               Localização
-            </a>
+            </button>
           </div>
-        </motion.div>
+        </M.div>
       )}
-    </motion.nav>
+    </M.nav>
   );
 }

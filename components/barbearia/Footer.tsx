@@ -1,4 +1,4 @@
-import { locationLabel, siteName } from "@/lib/site/env";
+import { address, siteName } from "@/lib/site/env";
 
 export default function Footer() {
   return (
@@ -15,8 +15,8 @@ export default function Footer() {
       >
         {siteName.toUpperCase()}
       </p>
-      <p className="text-zinc-600 text-xs tracking-widest uppercase mb-6">
-        Barbearia · {locationLabel}
+      <p className="mx-auto mb-6 max-w-md text-xs leading-relaxed tracking-wide text-zinc-500 sm:text-sm">
+        {address}
       </p>
       <div
         className="h-px w-16 mx-auto mb-6"
@@ -25,7 +25,7 @@ export default function Footer() {
             "linear-gradient(to right, transparent, rgba(56,189,248,0.3), transparent)",
         }}
       />
-      <p className="text-zinc-600 text-xs">
+      <p className="text-zinc-600 text-xs" suppressHydrationWarning>
         © {new Date().getFullYear()} · {siteName}
       </p>
     </footer>

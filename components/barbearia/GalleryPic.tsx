@@ -1,15 +1,32 @@
 "use client";
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { M } from "./safe-motion";
+import {
+  sectionTransition,
+  sectionViewport,
+} from "./sectionAnimations";
 import { urlForImage } from "../../sanity/lib/image";
+import {
+  galleryImageClass,
+  galleryImageMotion,
+  galleryImageTransition,
+  galleryItemSurfaceClass,
+  galleryModalImageClass,
+  galleryModalItemSurfaceClass,
+  galleryOverlayMotion,
+  galleryOverlayTransition,
+} from "./galleryStyles";
 
 export type CanalhaPhotoType = {
   _id: string;
   image: any;
   alt: string;
 };
+
+const GALLERYPIC_PREVIEW_LIMIT = 6;
 
 function GalleryItem({
   photo,
@@ -18,49 +35,39 @@ function GalleryItem({
   photo: CanalhaPhotoType;
   index: number;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   const [isActive, setIsActive] = useState(false);
   const imageUrl = photo.image ? urlForImage(photo.image)?.url() : "";
 
   return (
-    <motion.div
-      ref={ref}
-      className={`relative overflow-hidden rounded-2xl cursor-pointer`}
-      style={{ minHeight: 280 }}
+    <M.div
+      className={galleryItemSurfaceClass}
       initial={{ opacity: 0, scale: 0.96 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: index * 0.1,
-      }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={sectionViewport}
+      transition={sectionTransition(index * 0.1)}
       onHoverStart={() => setIsActive(true)}
       onHoverEnd={() => setIsActive(false)}
       onClick={() => setIsActive(!isActive)}
     >
       {imageUrl && (
-        <motion.img
+        <M.img
           src={imageUrl}
           alt={photo.alt}
-          className="w-full h-full object-cover absolute inset-0 bg-zinc-800"
-          animate={{
-            scale: isActive ? 1.12 : 1,
-            filter: isActive ? "grayscale(0%)" : "grayscale(100%)",
-          }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className={galleryImageClass}
+          animate={
+            isActive ? galleryImageMotion.active : galleryImageMotion.rest
+          }
+          transition={galleryImageTransition}
         />
       )}
-      <motion.div
+      <M.div
         className="absolute inset-0"
-        animate={{
-          background: isActive
-            ? "linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 60%)"
-            : "rgba(10,10,10,0.3)",
-        }}
-        transition={{ duration: 0.4 }}
+        animate={
+          isActive ? galleryOverlayMotion.active : galleryOverlayMotion.rest
+        }
+        transition={galleryOverlayTransition}
       />
-      <motion.div
+      <M.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         animate={{
           boxShadow: isActive
@@ -69,14 +76,11 @@ function GalleryItem({
         }}
         transition={{ duration: 0.3 }}
       />
-    </motion.div>
+    </M.div>
   );
 }
 
 export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[] }) {
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: "-60px" });
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Travar o scroll do body quando o modal estiver aberto
@@ -91,8 +95,8 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
     };
   }, [isModalOpen]);
 
-  const displayedPhotos = photos.slice(0, 3);
-  const hasMorePhotos = photos.length > 3;
+  const displayedPhotos = photos.slice(0, GALLERYPIC_PREVIEW_LIMIT);
+  const hasMorePhotos = photos.length > GALLERYPIC_PREVIEW_LIMIT;
 
   return (
     <section
@@ -101,28 +105,28 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
       style={{ background: "#0a0a0a" }}
     >
       <div className="max-w-5xl mx-auto">
-        {/* Heading */}
-        <motion.div
-          ref={titleRef}
+        <M.div
           initial={{ opacity: 0, y: 32 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={sectionViewport}
+          transition={sectionTransition()}
           className="text-center mb-16"
         >
-          <span className="text-[10px] tracking-[0.35em] uppercase text-zinc-500 block mb-4">
-            Nossa Galeria
-          </span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold uppercase tracking-wide text-white">
-            Clube dos{" "}
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-white">
+            Estilo Vai{" "}
             <span
               style={{
                 color: "#38bdf8",
                 textShadow: "0 0 10px rgba(56,189,248,0.3)",
               }}
             >
-              Canalhas
+              Além do Corte
             </span>
           </h2>
+          <p className="mx-auto mt-4 max-w-md px-1 text-xs leading-relaxed text-zinc-500 sm:max-w-xl sm:text-sm md:max-w-2xl md:text-base">
+            Complete seu visual com peças premium e acessórios selecionados.
+            Marcas renomadas, caimento impecável e identidade própria.
+          </p>
           <div
             className="mx-auto mt-6 h-px w-16"
             style={{
@@ -130,18 +134,20 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
                 "linear-gradient(to right, transparent, #38bdf8, transparent)",
             }}
           />
-        </motion.div>
+        </M.div>
 
         {photos.length === 0 ? (
-          <motion.div
+          <M.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={sectionViewport}
+            transition={sectionTransition()}
             className="text-center py-20 border border-zinc-800 rounded-2xl bg-zinc-900/30"
           >
             <p className="text-zinc-400 text-lg sm:text-xl uppercase tracking-widest font-serif">
               Em breve fotos dos Canalhas
             </p>
-          </motion.div>
+          </M.div>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -192,19 +198,18 @@ export default function GalleryPic({ photos = [] }: { photos?: CanalhaPhotoType[
               <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {photos.map((photo, i) => (
-                    <div 
-                      key={photo._id || i} 
-                      className="relative overflow-hidden rounded-2xl group cursor-pointer"
-                      style={{ minHeight: "350px" }}
+                    <div
+                      key={photo._id || i}
+                      className={`group ${galleryModalItemSurfaceClass}`}
                     >
                       {photo.image && (
                         <img
                           src={urlForImage(photo.image)?.url() || ""}
                           alt={photo.alt}
-                          className="w-full h-full object-cover absolute inset-0 bg-zinc-800 transition-transform duration-700 group-hover:scale-110"
+                          className={galleryModalImageClass}
                         />
                       )}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                       <div className="absolute inset-0 rounded-2xl pointer-events-none box-border border-2 border-transparent group-hover:border-[#38bdf8]/50 transition-colors duration-300" />
                     </div>
                   ))}
