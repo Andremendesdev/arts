@@ -1,18 +1,14 @@
 import { defineConfig } from "sanity";
-import { structureTool } from 'sanity/structure'
+import { structureTool } from "sanity/structure";
 import { schema } from "./sanity/schemaTypes";
-import { isSanityConfigured, projectId, dataset } from "./sanity/env";
-
-if (!isSanityConfigured) {
-  throw new Error("Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID");
-}
+import { dataset, projectId } from "./sanity/env";
+import { siteName } from "./lib/site/env";
 
 export default defineConfig({
   basePath: "/studio",
-  projectId,
+  projectId: projectId || "configure-me",
   dataset,
-  // Dependendo da versão instalada, usa-se structureTool ou deskTool.
-  // Como instalamos a 'sanity' latest, provavelmente é structureTool.
+  title: siteName,
   plugins: [structureTool()],
   schema,
 });
